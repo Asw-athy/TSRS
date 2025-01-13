@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Traffic Sign Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Road Traffic Sign Recognition</h1>
+            <p>Upload an image of a traffic sign to identify it!</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Select a Traffic Sign Image</h2>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <label for="file">Choose an Image:</label>
+                <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg">
+                <button type="submit">Upload and Predict</button>
+            </form>
+
+            <!-- Display prediction results if available -->
+            {% if prediction_1 or prediction_2 or prediction_3 %}
+            <div class="result">
+                <h3>Predicted Signs:</h3>
+                <h4>CNN Model Prediction: {{ prediction_1 }}</h4>
+                <h4>AlexNet Model Prediction: {{ prediction_2 }}</h4>
+                <h4>VGG19 Model Prediction: {{ prediction_3 }}</h4>
+                <img src="{{ url_for('uploaded_file', filename=img_path) }}" alt="Uploaded Image" class="uploaded-image">
+            </div>
+            
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
